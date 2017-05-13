@@ -1,23 +1,17 @@
 import React, {Component} from 'react';
 
-class SearchBar extends Component{
+class SearchBar extends Component {
     render() {
-        return <input />;
+        return <input onChange={event => console.log(event.target.value)} />;
     }
 }
 
 export default SearchBar;
 
-// NOTE
-//      import React, {Component} from 'react';
-// IS THE SAME AS
-//      import React from 'react';
-//      const Component = React.Component
-
 // SAME THING:
 /*
 import React from 'react';
-class SearchBar extends React.Component{
+class SearchBar extends React.Component {
     render() {
         return <input />;
     }
@@ -25,3 +19,26 @@ class SearchBar extends React.Component{
 
 export default SearchBar;
 */
+
+
+// SAME THING:
+/*
+import React, {Component} from 'react';
+class SearchBar extends Component {
+    onInputChange(event) {
+        console.log(event.target.value)
+    }
+
+    render() {
+        return <input onChange={this.onInputChange} />;
+    }
+}
+export default SearchBar;
+*/
+
+
+// NOTE
+//      import React, {Component} from 'react';
+// IS THE SAME AS
+//      import React from 'react';
+//      const Component = React.Component
