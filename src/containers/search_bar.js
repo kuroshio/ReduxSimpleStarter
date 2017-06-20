@@ -71,6 +71,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({fetchWeather}, dispatch)
 }
 
+// get access to action creator - by connecting component through mapDispatchToProps with SearchBar
 // we are passing null because whenever we're passing a function that is supposed to map our dispatch to the props
 // of our container, it always goes in as the second argument. that's all
 // all we're saying is that we don't need any state here
