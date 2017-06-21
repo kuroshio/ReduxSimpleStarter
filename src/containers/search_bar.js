@@ -20,8 +20,9 @@ class SearchBar extends Component {
 
     // event is always provided in "on" events, this is vanilla js
     onInputChange(event) {
-        console.log(event.target.value);
+        // console.log(event.target.value);
         this.setState({term:event.target.value});
+
     }
 
     onFormSubmit(event) {

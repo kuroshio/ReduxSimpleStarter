@@ -24,7 +24,7 @@ export function fetchWeather(city) {
     // but note that we're returning the promise on the payload key below
     // we're returning a promise as the payload
 
-    // console.log('Request:', request);
+     console.log('Request:', request);
 
     // remember action creators always have to return an action
     // and an action is an object which always has a type
