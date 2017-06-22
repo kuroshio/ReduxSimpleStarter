@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Sparklines, SparklinesLine} from 'react-sparklines';
+import Chart from '../components/chart';
 
 class WeatherList extends Component {
     renderWeather(cityData) {
         // render data for a single city/row
         const name = cityData.city.name;
         const temps = cityData.list.map(weather => weather.main.temp);
+
+        // we're generating all of our data here and passing it directly into the <Sparklines> chart
+        // that means the chart component we're going to make doesnt need to talk to redux
+        // because its going to be getting its data from its parent
         console.log(temps)
         return (
             <tr key={name}>
                 <td>{name}</td>
                 <td>
-                    <Sparklines height={120} width={180} data={temps}>
-                        <SparklinesLine color="red" />
-                    </Sparklines>
+                    <Chart data={temps} color="orange"/>
                 </td>
             </tr>
         )
