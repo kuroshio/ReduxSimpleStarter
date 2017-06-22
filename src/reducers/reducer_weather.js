@@ -23,8 +23,13 @@ export default function(state = [], action) {
             // don't mutate state, return new array entirely
             // concat creates a new array that contains all the old stuff and the new stuff
 
+            // https://www.udemy.com/react-redux/learn/v4/t/lecture/4284604?start=0
+            // When using React-Redux, returning an existing object from the reducer will cause Redux to think that you have made no change, and so will not notify any other part of your app that the state has been updated. Thus, you wont get any components rerendering.
+            // It is too expensive CPU-wise for Redux to check every field of an object graph for changes, so the approach is to signal Redux that the state has changed by returning a new state object. It only has to check that the old and new states are literally two different objects, which is an extremely fast and constant time operation. React takes the exact same approach with respect to checking a component's props and state for changes in order to decide whether or not to re-render the component.
+
             // return state.concat([action.payload.data]);  ES6 below does the same thing
-            return [action.payload.data, ...state];  // [city,city,city] NOT [city, [city,city]]
+            return [action.payload.data, ...state]; // ... destructures the array (flattens it out)
+                                                    // [city,city,city] NOT [city, [city,city]]
                                                     // note it puts newest city at top. can do same
                                                     // thing with concat by swapping state and payload
     }

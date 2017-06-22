@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Chart from '../components/chart';
+import GoogleMap from '../components/google_map';
 
 class WeatherList extends Component {
     renderWeather(cityData) {
@@ -14,10 +15,15 @@ class WeatherList extends Component {
         // we're generating all of our data here and passing it directly into the <Sparklines> chart
         // that means the chart component we're going to make doesnt need to talk to redux
         // because its going to be getting its data from its parent
-        console.log(temps)
+
+
+        // const lon = cityData.city.coord.lon;
+        // const lat = cityData.city.coord.lat;
+        const {lon, lat} = cityData.city.coord; // equivalent to above 2 lines
+
         return (
             <tr key={name}>
-                <td>{name}</td>
+                <td><GoogleMap lon={lon} lat={lat}/></td>
                 <td><Chart data={temps} color="orange" units="K"/></td>
                 <td><Chart data={pressures} color="green" units="hPa"/></td>
                 <td><Chart data={humidities} color="black" units="%"/></td>
