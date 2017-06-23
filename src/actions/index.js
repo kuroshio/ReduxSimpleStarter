@@ -8,7 +8,7 @@ export const FETCH_POSTS = 'fetch_posts';
 // to handle the async nature of the request itself
 
 const ROOT_URL = 'https://reduxblog.herokuapp.com/api';
-const API_KEY = '?key=somerandomuniquekey';
+const API_KEY = '?key=PAPERCLIP1234';
 
 
 export function fetchPosts() {

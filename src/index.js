@@ -19,6 +19,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 // import App from './components/app';
 import reducers from './reducers';
 import PostsIndex from './components/posts_index';
+import PostsNew from './components/posts_new';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -43,6 +44,7 @@ ReactDOM.render(
             {/*<Route path="/hello" component={Hello}/>*/}
             {/*<Route path="/goodbye" component={Goodbye}/>*/}
             <Route path="/" component={PostsIndex}/>
+            <Route path="/posts/new" component={PostsNew}/>
           </div>
       </BrowserRouter>
   </Provider>

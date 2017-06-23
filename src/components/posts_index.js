@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchPosts} from '../actions';
@@ -17,23 +18,41 @@ class PostsIndex extends Component {
         this.props.fetchPosts();
     }
 
+    renderPosts() {
+        return _.map(this.props.posts, post => {
+            return  (
+                <li className="list-group-item" key={post.id}>
+                    {post.title}
+                </li>
+            )
+        });    // this is an OBJECT, so it doesn't have the array helper method "map" available
+    }
 
     render() {
+        console.log(this.props.post);
+
         return (
             <div>
-                Posts Index
+                <h3>Posts</h3>
+                <ul className="list-group">
+                    {this.renderPosts()}
+                </ul>
             </div>
         )
     }
 }
 
+//whenever you want to consume anything from application level state, we always define mapStateToProps
+function mapStateToProps(state) {
+    return {posts: state.posts};
+}
 
 // in the past we made use of the connect helper by defining the mapDispatchToProps function
 // whenever we wanted to get an action creator directly into a component so we can call it off the props object
 // This is an alternative way to wire up an action creator (more of a shortcut) - below is identical in nature
 
 // export default connect(null, { fetchPosts: fetchPosts })(PostsIndex);
-export default connect(null, { fetchPosts })(PostsIndex);
+export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
 
 // there are still times when you want to use separate mapDispatchToProps function
 // eg if you want to do some computation on exactly how you want to call the action creator ahead of time
