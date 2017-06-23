@@ -11,7 +11,7 @@ import promise from 'redux-promise';
 // Route is a react component that can render inside of any other React component
 // purpose of Route to provide the configuration "if URL looks like this, show this component, if it looks like that URL
 // show that component"
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // Previously app was the wrapper/main location of starting up our application
 // now that we have react-router we dont have any central single component going on
@@ -36,6 +36,9 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 // Route component just used to shows or hides child component depending on the URL
 
 // router is processing routes from top -> bottom order
+// note that routes are matched fuzzily - it does a loose match, therefore use Switch component
+//      will ook at all the routes inside of it and only render the first route that matches the current url
+//      You want to put your most specific routes at the top of the list
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
       <BrowserRouter>
@@ -43,8 +46,10 @@ ReactDOM.render(
             {/*Header*/}
             {/*<Route path="/hello" component={Hello}/>*/}
             {/*<Route path="/goodbye" component={Goodbye}/>*/}
-            <Route path="/" component={PostsIndex}/>
-            <Route path="/posts/new" component={PostsNew}/>
+            <Switch>
+                <Route path="/posts/new" component={PostsNew}/>
+                <Route path="/" component={PostsIndex}/>
+            </Switch>
           </div>
       </BrowserRouter>
   </Provider>
