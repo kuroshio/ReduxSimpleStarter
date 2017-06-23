@@ -1,7 +1,20 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {fetchPosts} from '../actions';
+
+
+//navigation:
+// we're not going to use anchor tags - anchor tags do discrete navigation between different routes inside the browser
+// when we navigate inside a react router application, we just want to tell react to show a new set of components
+// we don't want the browser to do another request and fetch another HTML document from the server
+// in practice, to do navigation with react router, we use component provided by react-router itself, called Link
+// You can think of Link component as being nearly identical to a classic anchor tag -
+//  it will render something the user can click to navigate to different pages within react-router application
+
+// not when page is rendered, it is still a <a>, but a Link tag has a couple of event handlers that prevent
+// the browser from doing what it normally does (issue another http request)
 
 class PostsIndex extends Component {
 
@@ -33,6 +46,11 @@ class PostsIndex extends Component {
 
         return (
             <div>
+                <div className="text-xs-right">
+                    <Link className="btn btn-primary" to="/posts/new">
+                        Add a Post
+                    </Link>
+                </div>
                 <h3>Posts</h3>
                 <ul className="list-group">
                     {this.renderPosts()}
