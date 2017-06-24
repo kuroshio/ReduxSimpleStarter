@@ -42,15 +42,25 @@ class PostsNew extends Component {
 
         // .input is automatically created property
         // .meta.error automatically added to field object from validate function
+
+        // three states for form fields: pristine, touched (user focused to input AND focused away), invalid
+        // only want to show error message after user has touched the field
+        // submitting form puts all fields in touched state
+        const {meta: {touched, error}} = field;   // destructuring to access properties on nested objects
+        // const className = `form-group ${field.meta.touched && field.meta.error ? 'has-danger' : ''}`
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`
         return (
-            <div className="form-group">
+            <div className={className}>
                 <label>{field.label}</label>
                 <input
-                    className="form-control"
+                    className="form-control "
                     type="text"
                     {...field.input}
                 />
-                {field.meta.error}
+                <div className="text-help">
+                    {/*{field.meta.touched ? field.meta.error : ''}*/}
+                    {touched ? error : ''}
+                </div>
             </div>
         )
     }
@@ -79,6 +89,7 @@ class PostsNew extends Component {
         // then redux form says if everything is valid, then go ahead and call the callback this.onSubmit
         // .bind(this) because we are passing this.onSubmit as a callback function that will be executed in some diff context outside of our component
         // so to make sure we still have access to the correct this (essentially our component) inside of this we add on the bind(this)
+
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
