@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
+import {Link} from 'react-router-dom';
 
 // reduxForm is a function - very similar to the connect helper we've been using from react-redux
 // remember in index.js we hooked up formReducer - this reduxForm allows our component to communicate with this reducer
@@ -107,7 +108,8 @@ class PostsNew extends Component {
                     name="content"
                     component={this.renderField}
                 />
-                <button type="submit" className="btn btn-primary"> Submit</button>
+                <button type="submit" className="btn btn-primary">Submit</button>
+                <Link to="/" className="btn btn-danger">Cancel</Link>
             </form>
         );
     }
