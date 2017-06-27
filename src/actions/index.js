@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const FETCH_POSTS = 'fetch_posts';
+export const CREATE_POST = 'create_post';
 
 // need to make network request to the reduxblog api
 // whenever we need to make a network request inside of an action creator
@@ -22,6 +23,19 @@ export function fetchPosts() {
     // have our array of posts.
     return {
         type: FETCH_POSTS,
+        payload: request
+    }
+}
+
+export function createPost(values) {
+    const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
+    // this request object which preseumably returns a post - we can't just take 'values' object and put it directly
+    // into our state array bc the values obj does not yet have an ID associated with it
+    // we can't just arbitrarily throw something into our state object bc we don't have any ID to associate with this post
+
+
+    return {
+        type: CREATE_POST,
         payload: request
     }
 }

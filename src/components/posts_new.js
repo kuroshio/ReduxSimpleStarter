@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {createPost} from '../actions';
 
 // reduxForm is a function - very similar to the connect helper we've been using from react-redux
 // remember in index.js we hooked up formReducer - this reduxForm allows our component to communicate with this reducer
@@ -68,7 +70,15 @@ class PostsNew extends Component {
 
     onSubmit(values) {
         // this === component
+        // whenever we think about saving data or making API requests of any type inside of a redux app
+        // we always want to be thinking about action creators
+        // so we want to call an action creator here which will be responsible for posting the post to the API
         console.log(values);
+        this.props.createPost(values);
+
+        // note when submitting form, two requests are made. first one is OPTIONS
+        // OPTIONS type request is used whenever we are making CORS type requests - saying we are making an AJAX request
+        // thats going from localhost to different domain (herokuapp.com)
     }
 
     // you can pass in any arbitrary property to the Field component, it will automatically be attached to the field
@@ -162,7 +172,20 @@ function validate(values) {
 // form property allows you to specify a namespace of sorts for all the state thats going to be generated
 // by this component - just needs to be unique if we want this form to be isolated and not share its state
 // with other forms
+
+// export default reduxForm({
+//     validate, // validate: validate,
+//     form: 'PostsNewForm'
+// })(PostsNew);
+
+// recall redux form is already being used in the same style as our connect helper, so how do we combine these two
+// diff helpers together - weird syntax where we call connect or reduxform and put second set of parens with PostsNew?
+// By mimicking the same type of syntax but layering up these diff helpers
+// this is how we stack up multiple connect-like helpers
+
 export default reduxForm({
     validate, // validate: validate,
     form: 'PostsNewForm'
-})(PostsNew);
+})(
+    connect(null,{createPost})(PostsNew)
+);
