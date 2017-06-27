@@ -27,8 +27,9 @@ export function fetchPosts() {
     }
 }
 
-export function createPost(values) {
+export function createPost(values, callback) {
     const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
+                            .then(() => callback());    // remember axios returns a promise
     // this request object which preseumably returns a post - we can't just take 'values' object and put it directly
     // into our state array bc the values obj does not yet have an ID associated with it
     // we can't just arbitrarily throw something into our state object bc we don't have any ID to associate with this post

@@ -74,7 +74,13 @@ class PostsNew extends Component {
         // we always want to be thinking about action creators
         // so we want to call an action creator here which will be responsible for posting the post to the API
         console.log(values);
-        this.props.createPost(values);
+
+        this.props.createPost(values, () => {
+            //callback function
+            // navigate back to list of posts
+            this.props.history.push('/')        // Note Link component is not appropriate for programmatic navigation
+                                                // string needs to match one of the routes we defined
+        });
 
         // note when submitting form, two requests are made. first one is OPTIONS
         // OPTIONS type request is used whenever we are making CORS type requests - saying we are making an AJAX request
