@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_POSTS = 'fetch_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';
+export const DELETE_POST = 'delete_post';
 
 // need to make network request to the reduxblog api
 // whenever we need to make a network request inside of an action creator
@@ -48,5 +49,15 @@ export function fetchPost(id) {
     return {
         type: FETCH_POST,
         payload: request
+    }
+}
+
+export function deletePost(id, callback) {
+    // make sure we remove the post from app level state
+    const request = axios.delete(`${ROOT_URL}/posts/${id}${API_KEY}`)
+                        .then(() => callback());
+    return {
+        type: DELETE_POST,
+        payload: id
     }
 }
