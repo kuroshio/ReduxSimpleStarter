@@ -32,6 +32,11 @@ class PostsShow extends Component {
 
     onDeleteClick() {
         // return to index after delete
+        // challenge: making use of react router with action creators
+        // with react router we have the ability to easily navigate around programmatically with code that is written
+        // inside of a component. as soon as you put code outside of components, navigating around starts to get
+        // challening. one way to handle that is by passing callbacks to our action creators that will take care of the
+        // navigation after the action creator has completed executing
         const {id} = this.props.match.params;
         this.props.deletePost(id, () => {
             this.props.history.push('/');   // programmatic navigation
@@ -79,6 +84,8 @@ class PostsShow extends Component {
 // ownProps - props object that is going to the component (PostsShow), named so by convention
 // whenever the postshow component is about to be rendered/rerendered, mapStateToProps gets called to figure out what
 // props the component needs, and mapStateToProps gets passed all the props that were headed to PostsShow
+// remember the second arg is the set of props that are going to the target component - this makes mapstatetoprops
+// a good place to do some intermediate calculation e.g. lookup, check out video on reselect
 function mapStateToProps({posts}, ownProps) {
     // return {posts};
     // in some large projects, mapStatetoProps may be loaded in separate file
